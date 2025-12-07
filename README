@@ -1,3 +1,4 @@
 - pip install -r requirements.txt
 - pip install "zenml[server]"
+- zenml init
 - zenml up --blocking # for windows

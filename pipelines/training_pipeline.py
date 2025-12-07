@@ -6,7 +6,8 @@ from steps.cleaning_data import clean_data
 from steps.model_training import train_model
 from steps.evaluate_model import evaluate_model
 
-@pipeline
+
+@pipeline(enable_cache=True)
 def training_pipeline(data_path: str):
     data = ingest_data(data_path)
     df = clean_data(data)
