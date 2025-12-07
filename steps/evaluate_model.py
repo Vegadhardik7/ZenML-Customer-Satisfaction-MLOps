@@ -1,17 +1,17 @@
 import logging
 import pandas as pd
 import numpy as np
-from typing import Tuple
+from typing import Tuple, Protocol, runtime_checkable, Any
 from typing_extensions import Annotated
 from zenml import step
-from typing import Protocol
 from src.model_evaluation import MSE, R2, RMSE
 
+@runtime_checkable
 class RegressorProtocol(Protocol):
     def predict(self, X: pd.DataFrame) -> np.ndarray: ...
 
 @step
-def evaluate_model(model: RegressorProtocol, X_test: pd.DataFrame, y_test: pd.Series) -> Tuple [Annotated[float, "mse"], Annotated[float, "r2_score"], Annotated[float, "rmse"]]:
+def evaluate_model(model: Any, X_test: pd.DataFrame, y_test: pd.Series) -> Tuple [Annotated[float, "mse"], Annotated[float, "r2_score"], Annotated[float, "rmse"]]:
     """
     Evaluate model performance on the provided test data.
 
