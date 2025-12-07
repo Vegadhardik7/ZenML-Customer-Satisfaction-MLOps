@@ -1,20 +1,29 @@
 import logging
 import pandas as pd
 from zenml import step
-
-logger = logging.getLogger(__name__)
+from src.model_development import LinearRegressionModel
+from sklearn.base import RegressorMixin
+from .config import ModelNameConfig
 
 @step
-def train_model(df: pd.DataFrame) -> None:
-    """Train model on the provided data.
-    
-    Args:
-        df: Input DataFrame with features and labels
+def train_model(
+    X_train: pd.DataFrame, 
+    X_test: pd.DataFrame, 
+    y_train: pd.Series, 
+    y_test: pd.Series,
+    config: ModelNameConfig,
+    ) -> RegressorMixin:
     """
-    logger.info(f"Training model with {len(df)} samples and {len(df.columns)} features")
+    Train model on the provided data.
+    """
     try:
-        # Placeholder: actual model training would happen here
-        logger.info("Model training completed successfully")
+        model = None
+        if config.model_name == "LinearRegression":
+            model = LinearRegressionModel()
+            lr_model = model.train(X_train, y_train)
+            return lr_model
+        else:
+            raise ValueError(f"Model {config.model_name} not listed.")
     except Exception as e:
-        logger.error(f"Error during model training: {e}")
-        raise
+        logging.error(f"Error in training model: {e}")
+        raise e
