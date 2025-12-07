@@ -2,3 +2,7 @@
 - pip install "zenml[server]"
 - zenml init
 - zenml up --blocking # for windows
+
+# MLFlow:
+
+# mlflow ui --backend-store-uri "file:C:\Users\vegad\AppData\Roaming\zenml\local_stores\396d1a66-92cf-4041-9b0e-9e0a45a9a217\mlruns"
